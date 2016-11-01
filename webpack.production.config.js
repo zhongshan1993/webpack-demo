@@ -8,13 +8,16 @@ var path = require('path'),
 
 module.exports = {
   entry: {
-    
+    app: path.resolve(APP_PATH, 'index.js'),
+    vendors: ['jquery', 'moment']
   },
   output: {
     path: BUILD_PATH,
     filename: 'bundle.js'
   },
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
     new HtmlWebpackPlugin({
       title: 'Hello World App'
     }),
